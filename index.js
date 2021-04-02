@@ -39,14 +39,15 @@ client.connect(err => {
   app.get('/product/:_id', (req, res) => {
     collection.find({_id: ObjectId(req.params._id)})
       .toArray((err, items) => {
-        console.log(items);
+        // console.log(items);
         res.send(items)
       })
   })
   app.get('/orders', (req, res) => {
-    orderCollection.find()
+    console.log(req.query.email);
+    orderCollection.find({email: req.query.email})
       .toArray((err, items) => {
-        console.log(items);
+        // console.log(items);
         res.send(items)
       })
   })
@@ -55,7 +56,7 @@ client.connect(err => {
     console.log('adding: ', newEvent);
     collection.insertOne(newEvent)
       .then(result => {
-        console.log(result.insertedCount);
+        // console.log(result.insertedCount);
         res.send(result.insertedCount > 0)
       })
   })
@@ -63,14 +64,14 @@ client.connect(err => {
     const order = req.body;
     orderCollection.insertOne(order)
       .then(result => {
-        console.log(result.insertedCount);
+        // console.log(result.insertedCount);
         res.send(result.insertedCount > 0)
       })
   })
   app.delete('/deleteProduct/:id',(req, res)=>{
     collection.deleteOne({_id: ObjectId(req.params.id)})
     .then(result=>{
-      console.log(result);
+      // console.log(result);
           })
   })
 
